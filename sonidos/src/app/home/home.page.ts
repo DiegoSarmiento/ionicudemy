@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ANIMALES } from "../../data/data.animales";
+import { Animal } from "../../interfaces/animal.interface";
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,22 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  public animales:Animal[] = [];
+
+  constructor() {
+
+    this.animales=ANIMALES.splice(0);
+
+  }
+
+  reproducir( animal:Animal){
+    console.log(animal);
+    let audio = new Audio();
+    audio.src = animal.audio;
+    audio.load();
+    audio.play();
+    animal.reproduciendo = true;
+    setTimeout(()=> animal.reproduciendo = false, animal.duracion * 1000);
+  }
 
 }
